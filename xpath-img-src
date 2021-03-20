@@ -1,0 +1,29 @@
+//
+//Get all img srcs in html/xml with xpath and javascript and copy array of values to clipboard in the browser console.  
+//Tested in firefox.
+
+copy($x("//img/@src").map(n => n.value).join("\n"))
+
+//explanation
+
+//$x(xpath, element, resultType)    <-$x() signature
+$x() is a browser console command - part of the built-in helper functions
+//https://developer.mozilla.org/en-US/docs/Tools/Web_Console/Helpers
+
+//xpath path
+"//img/@src"   means get all img children elements and get the src attributes (as a string)?
+The $x returns 
+$x("//img/@src") returns an array of objects of type Attr
+The Attr object has various keys. The src key is the one that is in the array element.
+The array has "src='string of url or data etc'"  items.
+The useful keys are the value and textContent keys of the Attr object.
+
+Now, we have to transform those array items into strings with a chained method - .map(n => n.value)
+We use the fat arrow notation - an arrow function expression.
+//The map() method creates a new array populated with the results of calling a provided function on every element in the calling array
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+The map method takes a value (n) and returns the 'value' property of the argument n.
+
+We then join the items in the array with a new line ready for output.
+copy() is a console built-in helper function. It copies the inner variable/item to the clipboard.
+
